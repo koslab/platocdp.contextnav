@@ -1,0 +1,9 @@
+<div id="platocdp-contextnav" tal:condition="viewlet/available">
+    
+</div>
+<script id="platocdp-contextnav-hidden" type="text/javascript"
+       tal:condition="not:viewlet/available">
+    $(document).ready(function () {
+    $('body').addClass('platocdp-contextnav-hidden');
+    })
+</script>
