@@ -3,7 +3,7 @@ from zope.interface import Interface
 from five import grok
 from zope.component import getMultiAdapter
 from zope.publisher.interfaces import IRequest
-from Products.CMFCore.interfaces import IContentish
+from Products.CMFCore.interfaces import IContentish, ISiteRoot
 from plone.app.layout.viewlets import interfaces as manager
 from platocdp.contextnav.interfaces import IProductSpecific
 from platocdp.contextnav.interfaces import IContextNavigationProvider
@@ -26,6 +26,9 @@ class ContextNav(grok.Viewlet):
         )
         return provider.navlinks()
 
+class SiteRootContextNav(ContextNav):
+    grok.context(ISiteRoot)
+
 
 class DefaultContextNavigationProvider(grok.MultiAdapter):
     grok.implements(IContextNavigationProvider)
@@ -37,3 +40,7 @@ class DefaultContextNavigationProvider(grok.MultiAdapter):
 
     def navlinks(self):
         return {}
+
+class SiteRootNavigationProvider(DefaultContextNavigationProvider):
+    grok.adapts(ISiteRoot, IRequest)
+
